@@ -13,8 +13,12 @@ import { app, server } from "./lib/socket.js";
 
 dotenv.config();
 
-const PORT = process.env.PORT;
-const __dirname = path.resolve();
+const PORT = process.env.PORT || 5001;
+
+// Make __dirname robust for ES modules so path resolution works regardless of cwd
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.use(express.json());
 app.use(cookieParser());
